@@ -1,0 +1,179 @@
+---
+layout: default
+---
+        <!-- <div><video autoplay="" id="bgvid" loop="" oncanplay=""><source src="images/kuala_lumpur_timelapse_converted.mp4" type="video/mp4"></video></div> -->
+        <!-- <div id="bgvid" style="background-image:url(images/nashville3.jpg)"></div> -->
+        <!-- <div class="carousel-backgroundimage" style="background-image:url(http://pic-bucket.nosdn.127.net/photo/0001/2017-10-11/D0F3AB9O00AN0001NOS.jpg)"></div> -->
+
+        <header id="header" class="alt">
+            <!-- SCOPE-Lab</span> -->
+            <!-- <span class="typedheader typed"></span> --> 
+            <!-- filled by main.js using typed.js -->
+
+            <div id="myCarousel" class="carousel slide" data-ride="carousel" style="height: 600px;!important">
+                  <ol class="carousel-indicators">
+                    {% assign int_one_project = 0 %}
+                    {% for project in site.projects %}
+                        {% if int_one_project == 0 %}
+                            <li data-target="#myCarousel" data-slide-to="{{ int_one_project }}" class="active"></li>
+                        {% else %}
+                            <li data-target="#myCarousel" data-slide-to="{{ int_one_project }}" class=""></li>
+                        {% endif %}
+                        {% assign int_one_project = int_one_project | plus: 1 %}                        
+                    {% endfor %}
+                  </ol>
+
+                  <div class="carousel-inner" style="height: 600px;!important">
+                    {% assign int_one_project = 0 %}
+                    {% for project in site.projects %}
+                        {% if int_one_project == 0 %}
+                            <div class="item active"  style="height: 600px;!important">
+                        {% else %}
+                            <div class="item"  style="height: 600px;!important">
+                        {% endif %}
+                        {% assign int_one_project = int_one_project | plus: 1 %}   
+                                <!-- <img src="http://pic-bucket.nosdn.127.net/photo/0001/2017-10-11/D0F3AB9O00AN0001NOS.jpg"  > -->
+                                <!-- <div class="carousel-backgroundimage" style="background-image:url({{ project.image }});" ></div> -->
+
+                                <div class="carousel-backgroundimage" style="background: linear-gradient(to bottom, rgba(100, 100, 100, 0.4), rgba(100, 100, 100, 0.4)), url({{ project.image }});" ></div>
+                                <div class="carousel-caption">
+                                  <h3>{{ project.name }}</h3>
+                                  <!-- <h4>{{ project.shortdescription }}</h4> -->
+                                  <br/>
+                                  <br/>
+                                </div>
+                            </div>
+                    {% endfor %}
+                  </div>
+
+                  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                    <!-- <span class="fa fa-arrow-circle-left"></span> -->
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                    <!-- <span class="fa fa-arrow-circle-right"></span> -->
+                    <span class="sr-only">Next</span>
+                  </a>
+                </div>
+        </header>
+
+        <!-- <footer style="text-align: center;background:rgba(0,0,0,0.5);">
+            <ul style="display:inline-block;margin-top:1em;margin-left:-1.5em;margin-bottom:1em;overflow:hidden;list-style-type:none;">
+              <header class=""  style="text-align: center;">
+                  <h2>News</h2>
+              </header>
+              {% assign sorted = (site.posts | sort: 'date') | reverse %}
+              {% assign post_count = 0 %}
+              {% for post in sorted %}
+                {% assign post_count = post_count | plus: 1 %}
+                {% if post_count>2 %}
+                  {% break %}
+                {% endif %}
+                <p class="post-title" style="text-align: center;"><a href="/blog">{{ post.title }}</a>
+                </p>
+              {% endfor %}
+            </ul>
+        </footer> -->
+
+        <div id="main">
+            <!-- <section class="main special">
+                <div class="embed-responsive embed-responsive-4by3">
+                    <img src="http://pic-bucket.nosdn.127.net/photo/0001/2017-10-11/D0F3AB9O00AN0001NOS.jpg" width="100%" height="565" >
+                </div>
+            </section> -->
+            <!-- <section class="main special"> -->
+                <!-- <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                  <ol class="carousel-indicators">
+                    {% assign int_one_project = 0 %}
+                    {% for project in site.projects %}
+                        {% if int_one_project == 0 %}
+                            <li data-target="#myCarousel" data-slide-to="{{ int_one_project }}" class="active"></li>
+                        {% else %}
+                            <li data-target="#myCarousel" data-slide-to="{{ int_one_project }}" class=""></li>
+                        {% endif %}
+                        {% assign int_one_project = int_one_project | plus: 1 %}                        
+                    {% endfor %}
+                  </ol>
+
+                  <div class="carousel-inner">
+                    {% assign int_one_project = 0 %}
+                    {% for project in site.projects %}
+                        {% if int_one_project == 0 %}
+                            <div class="item active">
+                        {% else %}
+                            <div class="item">
+                        {% endif %}
+                        {% assign int_one_project = int_one_project | plus: 1 %}   
+                            <img src="http://pic-bucket.nosdn.127.net/photo/0001/2017-10-11/D0F3AB9O00AN0001NOS.jpg" width="100%" height="565" >
+                            </div>
+                    {% endfor %}
+                  </div>
+
+                  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                    <span class="fa fa-arrow-circle-left"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                    <span class="fa fa-arrow-circle-right"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </div> -->
+            <!-- </section> -->
+            <section id="intro" class="main">
+                <div class="spotlight">
+                    <div class="content" style="text-align: left;">
+                        <header class="major"  style="text-align: center;">
+                            <h2>About Us</h2>
+                        </header>
+                            <p> Our research group works on human cyber-physical systems operating across geographically dispersed environments. Examples of such system include public transportation networks, and electrical power networks. We explore these societally important systems focusing on the community applications, descriptive and predictive analytics, and computation platforms and distributed middleware required for these systems. In particular, we are concerned with the following challenges.</p>
+                            <p><u>Development and Operations Management</u> - As we think about modern operations that include over the air updates and flexible functionality that are implemented in software, the devops mechanisms used to design enterprise systems are now being used for CPS design. The challenge we face is – how can we ensure that the software engineering principles applied to enterprise structures can be used to guarantee safety and reliability for embedded software that have to operate under the physical constraints imposed by CPS components?
+                            <p><u>System Reliability</u> - Any system that operates over long periods of time has to cope with degradation associated with ageing, operational stress, and environmental conditions, that can result in failures of the associated physical components. Failures and latent bugs in the software add another source of degradation and failure, resulting in un-operational and compromised systems. It remains a challenge to understand and monitor degradation and failure caused by interactions between different subsystems of a large CPS that may operate across multiple physical domains.</p>
+                            <p><u>Robust Computation Platforms</u> - A computation platform must be designed to accommodate and integrate heterogeneous components, operate at multiple time-scales (e.g., real time, near real time, and , long-term), allow for dynamic resource allocation, while accommodating a variety of topologies including edge networks, and providing, safety, reliability, and security guarantees. Our goal is to implement a stringent layered architecture that ensures that the layers interact across safe interface sets, provide efficiency guarantees, and ensure that the faults from a layer propagates across the layer in a way that allows better characterization of failure dynamics.</p>
+
+</div>
+                    <!-- <span class="image"><img src="images/vehicles/varun.jpg" alt="varun" /></span> -->
+                </div>
+            </section>
+            <section class="main special">
+            {% assign sorted = (site.teams | sort: 'date') | reverse %}
+            {% for team in sorted %}
+                <div class="content">
+                    <header class="major">
+                        <h2>{{ team.name }}</h2>
+                    </header>
+                    <!-- <p>{{ team.description }}</p> -->
+                    <br>
+                    {% for people in team.people %}
+                    {% assign teammatey = site.people | where:"key", people  | first %}
+                    <p style="clear: both;">
+
+
+                    <span class="image  left" style="max-width: 150px;">
+{% if teammatey.site %}
+<a href="{{ teammatey.site }}">
+{% endif %}
+<img src="{{ site.baseurl }}{{ teammatey.image }}" alt="" />
+{% if teammatey.site %}
+</a>
+{% endif %}
+</span>
+                    <h3>
+{% if teammatey.site %}
+<a href="{{ teammatey.site }}">
+{% endif %}
+<b>{{ teammatey.name}}</b>
+{% if teammatey.site %}
+</a>
+{% endif %}
+</h3>
+                   <div style="text-align: justify;"> {{ teammatey.description }} </div>
+                    <!-- <a href="{{ item.link }}"><i>Read more...</i></a> -->
+                    </p>
+                    <br>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            </section>
+
+
+        </div>

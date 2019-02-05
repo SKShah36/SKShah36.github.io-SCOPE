@@ -1,0 +1,82 @@
+---
+layout: default
+title: Projects
+description: 
+---
+<!-- <div><video autoplay="" id="bgvid" loop="" oncanplay=""><source src="images/kuala_lumpur_timelapse_converted.mp4" type="video/mp4"></video></div> -->
+<!-- <div id="bgvid" style="background-image:url(../images/nashville3.jpg)"></div> -->
+<!-- Header -->
+<div id="topBlank" style="height: 60px; background-color: #925d8c;">
+</div>
+
+<div id="main">
+   <section class="main">
+      <!-- <header id="header">
+         <h1>{{ page.title }}</h1>
+         <p>{{ page.description }}</p>
+      </header> -->
+      <!-- {% assign sorted = (site.projects | sort: 'date') | reverse %} -->
+      {% for project in site.projects reversed %}
+      <div class="spotlight">
+         <div class="content">
+            <header class="major">
+               <h2>{{ project.name }}</h2>
+            </header>
+            <p>{{ project.description }}</p>
+            <br>
+            {% if project.ack %}
+            <p class="post-subtitle" style="text-align: justify;text-justify: inter-word;">
+               {{ project.ack }}
+            </p>
+            <br/>
+            {% endif %}
+            <ul class="actions">
+               {% if project.link | size >0 %}
+                  <li><a href="{{ project.link }}" class="button">Learn More</a></li>
+               {% else %}
+               <li><a href="{{ project.url }}" class="button">Learn More</a></li>
+               {% endif %}
+               <li><a href="../publication?proj={{ project.tag }}" class="button">Publications</a></li>
+            </ul>
+         </div>
+         <!--{% if project.image %}
+            <span class="image"><img src="{{ project.image }}" alt="{{ project.name }}" /></span>
+            {% endif %}-->
+      </div>
+      <hr/>
+      {% endfor %}
+   </section>
+</div>
+<header id="header">
+   <h1>Past Projects</h1>
+</header>
+<div id="main">
+   <section class="main">
+      <!-- {% assign sorted = (site.projects | sort: 'date') | reverse %} -->
+      {% for project in site.pastprojects %}
+      <div class="spotlight">
+         <div class="content">
+            <header class="major">
+               <h2>{{ project.name }}</h2>
+            </header>
+            <p>{{ project.description }}</p>
+            <br>
+            {% if project.ack %}
+            <p class="post-subtitle" style="text-align: justify;text-justify: inter-word;">
+               {{ project.ack }}
+            </p>
+            <br/>
+            {% endif %}
+            <ul class="actions">
+               <li><a href="{{ project.link }}" class="button">Learn More</a></li>
+               <li><a href="../publication?proj={{ project.tag }}" class="button">Publications</a></li>
+            </ul>
+         </div>
+         <!--{% if project.image %}
+            <span class="image"><img src="{{ project.image }}" alt="{{ project.name }}" /></span>
+            {% endif %}-->
+      </div>
+      <hr/>
+      {% endfor %}
+   </section>
+</div>

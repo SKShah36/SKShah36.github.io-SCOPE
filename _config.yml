@@ -1,0 +1,42 @@
+# Site settings
+title: SCOPE-Lab
+email: abhishek.dubey@vanderbilt.edu
+copyright_name: SCOPE Lab
+github_username: visor-vu
+baseurl:  
+# baseurl: /webtest
+# AUV-IITK
+
+collections:
+  projects :
+  pastprojects :
+  teams:
+  research :
+  people:
+  publication:
+
+# used to estimate reading time
+wpm: 150
+
+# set the scholar key
+scholar:
+  style: dependent/mla
+  source: .
+  bibliography: journal.bib
+  bibliography_template: _layouts/post
+  # details_layout: post.html
+  details_dir: _bibliography
+  repository: ./_bibliography
+
+port: 5555
+# permalink: /blog/:title
+
+# jekyll-paginate
+paginate: 5
+paginate_path: blog/page:num
+
+# gem dependencies
+plugins: [jekyll-paginate, jekyll-feed, jekyll-gist, jekyll-scholar]
+
+
+include: ['_projects']

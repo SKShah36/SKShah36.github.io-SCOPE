@@ -1,0 +1,23 @@
+languaige: ruby
+python:
+- 2.7
+rvm:
+- 2.2.5
+install:
+- pip install --user -r bibtex_parser/requirements.txt
+script:
+- set -e
+- pushd bibtex_parser
+- python2 parse.py
+- popd
+- bundle update
+- bundle install
+- bundle exec jekyll build
+- bundle exec htmlproofer ./_site --only-4xx --external_only
+- chmod +x push.sh
+- "./push.sh"
+env:
+  global:
+  - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
+  - secure: XY2bbR5vedrEYvYuEqZN08f2vCWj7u8q64M5/5aK+KITqAulA9x4C9UDBedJLXeBpWgxwEe1N398ISNVybI2kjtiWLcYuE4fuSM2yPFI+qETmSyAKLlOVkVSIuLq/niPvvTz6EVZSiagCmoChd8V3hLS3Mo/SbdSpk+kghPi8gXwPxQmMmJw4KzF+Of3V2IL2azPVvuh1GPg2H5Ncdmntv/svxEaCeRWglxKIZRPTNn8/72FEKGXqvveQmtdMDu24MmfAERRWMm1wE180/46XPgz97PRPTMeB91XgVTtAr2HL08oGaF2JUWHpNsPhDgx7/jJ0q2HJVhL7MAEy/CSUgZEPdLU+yz/WCGgGY0OeynR66lKk89R8uMzo2dPUvkT0Ypggwt/TrvauBk6114BMkeVqcWr9ErQxi0mJ3D9VYrStdBXIi7wOKzZjyk2KhMKMao5AUesbgl/yqBSLq8OPpZuzLPpCS5y3b21ilsXR/3JkFFmB8QWrsxQ3WF/XxiFIKsEustctT3zBhUuJCgIE++GR6Z1sl4x3RjGIpaU2PuJbtU+HPPsmP7pjnHhiqeHDKtvkpIYqXjKx70KI0WoESklVQriinQOs8v1BwN+/yXy4vrz3dCKIZxrjTo3sXteJmw9+/TcWjBJEDdf/5hqn0h0Ag+ZrCi9nFlu7ZMB5FA=
+sudo: false

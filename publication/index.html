@@ -1,0 +1,229 @@
+---
+layout: default
+title: Publications
+description:
+---
+
+<!-- <div id="bgvid" style="background-image:url(../images/nashville3.jpg)"></div> -->
+<div id="topBlank" style="height: 60px; background-color: #925d8c;">
+</div>
+<!-- Header -->
+
+<div id="main">
+  <section class="main">
+    <!-- <header id="header">
+      <h1>{{ page.title }}</h1>
+      <p>{{ page.description }}</p>
+    </header> -->
+
+    <div id="selected-tags"></div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8">
+          {% assign uniq_years = '' | split: ',' %}
+          {% assign all_years = site.publication | map:'year' | join: ',' | split: ',' %}
+          {% assign all_years = all_years | sort | reverse %}
+          {% for one_year in all_years %}
+          {% unless one_year == previous %}
+          {% assign uniq_years = uniq_years | push: one_year %}
+          {% endunless %}
+          {% assign previous = one_year %}
+          {% endfor %}
+
+          {% for one_year in uniq_years %}
+          {% assign int_one_year = one_year | plus: 0 %}
+          <!-- <p>{{ one_year }}</p> -->
+
+          {% assign sorted = (site.publication | sort: 'date') | reverse %}
+          {% for pub in sorted %}
+          <div class="blog-list-container" id="{{ pub.year }} {{ pub.pub_type }} {{ pub.proj_type }}">
+            {% assign int_pub_year = pub.year | plus: 0 %}
+
+            {% if int_one_year == int_pub_year %}
+            <ul class="one-publication-tags-list">
+              <li class="">{{pub.year}}</li>
+              <li class="">{{pub.pub_type}}</li>
+              <li class="">{{pub.proj_type}}</li>
+            </ul>
+
+            <p  style="text-align: justify;text-justify: inter-word;">{{ pub.title }} {{ pub.doi }}
+              {% if  pub.link contains 'http' %}
+              <a href="{{ pub.link }}" style="color:blue;"> <img src="Icon_External_Link.svg"></a>
+              {% endif %}
+            </p>
+            {% endif %}
+
+          </div>
+          {% endfor %}
+          <!-- <hr/> -->
+          {% endfor %}
+
+        </div>
+        <div class="col-sm-4">
+          <!-- unique project type tags -->
+          {% assign uniq_pub_types = '' | split: ',' %}
+          {% assign all_pub_types = site.publication | map:'pub_type' | join: ',' | split: ',' | sort %}
+          {% for one_pub_type in all_pub_types %}
+          {% unless one_pub_type == "" %}
+          {% unless one_pub_type == previous %}
+          {% assign uniq_pub_types = uniq_pub_types | push: one_pub_type %}
+          {% endunless %}
+          {% endunless %}
+          {% assign previous = one_pub_type %}
+          {% endfor %}
+
+          <!-- unique project type tags -->
+          {% assign uniq_proj_types = '' | split: ',' %}
+          {% assign all_proj_types = site.publication | map:'proj_type' | join: ',' | split: ',' | sort %}
+          {% for one_proj_type in all_proj_types %}
+          {% unless one_proj_type == "" %}
+          {% unless one_proj_type == previous %}
+          {% assign uniq_proj_types = uniq_proj_types | push: one_proj_type %}
+          {% endunless %}
+          {% endunless %}
+          {% assign previous = one_proj_type %}
+          {% endfor %}
+
+          <div style="max-width:75%;">
+
+            <ul  class="blog-tags-list">
+              <li class="blog-tag-item" style="background-color:white !important;">TAGS</li>
+            </ul>
+
+            <ul  class="blog-tags-list">
+              <li class="blog-tag-item" style="background-color:white !important;font-size: 80%;">Years</li>
+              <br/>
+              {% for one_year in uniq_years %}
+              <li class="blog-tag-item" id="{{ one_year }}-item">
+                <a href onclick="filter('{{ one_year }}', 'year'); return false;">{{ one_year }}</a>
+              </li>
+              {% endfor %}
+            </ul>
+
+            <ul  class="blog-tags-list">
+              <li class="blog-tag-item" style="background-color:white !important;font-size: 80%;">Publications</li>
+              <br/>
+              {% for one_pub_type in uniq_pub_types %}
+              <li class="blog-tag-item" id="{{ one_pub_type }}-item">
+                <a href onclick="filter('{{ one_pub_type }}', 'pub'); return false;">{{ one_pub_type }}</a>
+              </li>
+              {% endfor %}
+            </ul>
+
+            <ul  class="blog-tags-list">
+              <li class="blog-tag-item" style="background-color:white !important;font-size: 80%;">Projects</li>
+              <br/>
+              {% for one_proj_type in uniq_proj_types %}
+              <li class="blog-tag-item" id="{{ one_proj_type }}-item">
+                <a href onclick="filter('{{ one_proj_type }}', 'proj'); return false;">{{ one_proj_type }}</a>
+              </li>
+              {% endfor %}
+            </ul>
+            <ul  class="blog-tags-list">
+              <li class="blog-tag-item" style="background-color:white !important;"><a href onclick="filter('', '[[clear-all]]'); return false;">Show All</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<script type="text/javascript">
+function filter(tag, type) {
+  var item = document.getElementById("selected-tags");
+  switch (type) {
+    case "[[clear-all]]":
+    item.setAttribute('year', '');
+    item.setAttribute('pub', '');
+    item.setAttribute('proj', '');
+    break;
+    case "year":
+    item.setAttribute('year', tag);
+    break;
+    case "pub":
+    item.setAttribute('pub', tag);
+    break;
+    case "proj":
+    item.setAttribute('proj', tag);
+    break;
+  }
+  // console.log(item);
+  item.setAttribute('class', '');
+  if (item.getAttribute("year"))
+  item.classList.add(item.getAttribute("year"));
+  if (item.getAttribute("pub"))
+  item.classList.add(item.getAttribute("pub"));
+  if (item.getAttribute("proj"))
+  item.classList.add(item.getAttribute("proj"));
+
+  setActiveTag(tag);
+  showContainer(tag);
+}
+
+function setActiveTag(tag) {
+  // loop through all items and remove active class
+  var items = document.getElementsByClassName('blog-tag-item');
+  for (var i = 0; i < items.length; i++) {
+    items[i].setAttribute('class', 'blog-tag-item');
+  }
+
+  // set the selected tag's item to active
+  var item2 = document.getElementById("selected-tags");
+  for (var i=0; i<item2.classList.length; i++) {
+    var tag2 = item2.classList[i]
+    var item = document.getElementById(tag2 + '-item');
+    if (item) {
+      item.setAttribute('class', 'blog-tag-item active');
+    }
+  }
+}
+
+function checkContainsAllTags(itemID) {
+  var item = document.getElementById("selected-tags");
+  var flagContains = true;
+  for (var i=0; i<item.classList.length; i++) {
+    if (!itemID.includes(item.classList[i])) {
+      flagContains = false;
+    }
+  }
+  return flagContains;
+}
+
+function showContainer(tag) {
+  var lists = document.getElementsByClassName('blog-list-container');
+  for (var i = 0; i < lists.length; i++) {
+    if (!checkContainsAllTags(lists[i].id)) {
+      lists[i].classList.add("hidden");
+      // lists[i].setAttribute('class', 'blog-list-container hidden');
+    } else {
+      lists[i].classList.remove("hidden");
+      // lists[i].setAttribute('class', 'blog-list-container');
+    }
+  }
+  if (!tag) {
+    for (var i = 0; i < lists.length; i++) {
+      lists[i].classList.remove("hidden");
+    }
+  }
+}
+
+var params = {};
+if (location.search) {
+  var parts = location.search.substring(1).split('&');
+
+  for (var i = 0; i < parts.length; i++) {
+    var nv = parts[i].split('=');
+    if (!nv[0]) continue;
+    params[nv[0]] = nv[1] || true;
+  }
+}
+var proj = params.proj;
+if (proj) {
+  proj = proj.toUpperCase();
+  filter(proj, 'proj');
+}
+</script>

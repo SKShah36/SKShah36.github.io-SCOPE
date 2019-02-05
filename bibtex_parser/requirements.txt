@@ -1,0 +1,2 @@
+zs.bibtex==1.0.0
+pybtex==0.21

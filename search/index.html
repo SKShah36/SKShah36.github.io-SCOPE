@@ -1,0 +1,64 @@
+---
+layout: default
+title: Search
+description: Enter keywords...
+---
+<!-- <div id="bgvid" style="background-image:url(../images/nashville2.png)"></div> -->
+<div id="topBlank" style="height: 60px; background-color: #925d8c;">
+</div>
+<div id="main">
+    <section class="main">
+        <header id="header">
+                <h1>{{ page.title }}</h1>
+                <p>{{ page.description }}</p>
+        </header>
+        <div class="spotlight">
+            <div class="content">
+                <header class="major">
+                    <h2>Search Blog</h2>
+                </header>
+                <!-- Html Elements for Search -->
+                <input type="text" id="search-input" placeholder="Enter keywords...">
+                <ul id="results-container"></ul>
+                <!-- Script pointing to jekyll-search.js -->
+                <script src="{{ site.baseurl }}/assets/js/jekyll-search.js" type="text/javascript"></script>
+                <script type="text/javascript">
+                SimpleJekyllSearch({
+                    searchInput: document.getElementById('search-input'),
+                    resultsContainer: document.getElementById('results-container'),
+                    json: '{{ site.baseurl }}/search_blog.json',
+                    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+                    noResultsText: 'No results found',
+                    limit: 10,
+                    fuzzy: true,
+                    exclude: ['Welcome', 'Blog']
+                })
+                </script>
+            </div>
+        </div>
+        <div class="spotlight">
+            <div class="content">
+                <header class="major">
+                    <h2>Search Publication</h2>
+                </header>
+                <!-- Html Elements for Search -->
+                <input type="text" id="search-input2" placeholder="Enter keywords...">
+                <ul id="results-container2"></ul>
+                <!-- Script pointing to jekyll-search.js -->
+                <script src="{{ site.baseurl }}/assets/js/jekyll-search.js" type="text/javascript"></script>
+                <script type="text/javascript">
+                SimpleJekyllSearch({
+                    searchInput: document.getElementById('search-input2'),
+                    resultsContainer: document.getElementById('results-container2'),
+                    json: '{{ site.baseurl }}/search_publication.json',
+                    searchResultTemplate: '<li>{title}</li>',
+                    noResultsText: 'No results found',
+                    limit: 10,
+                    fuzzy: true,
+                    exclude: ['Welcome', 'Blog']
+                })
+                </script>
+            </div>
+        </div>
+    </section>
+</div>

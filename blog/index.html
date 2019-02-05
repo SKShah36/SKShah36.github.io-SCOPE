@@ -1,0 +1,193 @@
+---
+layout: default
+title: Updates 
+description:
+---
+<!-- <div><video autoplay="" id="bgvid" loop="" oncanplay=""><source src="images/kuala_lumpur_timelapse_converted.mp4" type="video/mp4"></video></div> -->
+<!-- <div id="bgvid" style="background-image:url(../images/nashville3.jpg)"></div> -->
+<!-- Header -->
+<!-- <header id="header">
+  <h1>{{ page.title }}</h1>
+  <p>{{ page.description }}</p>
+</header> -->
+<div id="topBlank" style="height: 60px; background-color: #925d8c;">
+</div>
+
+<div id="main">
+  <section id="content" class="main">
+
+    <div id="selected-tags"></div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8">
+          {% assign sorted = (site.posts | sort: 'date') | reverse %}
+          {% assign post_count = -1 %}
+          {% for one_post in sorted %}
+          {% assign post_count = post_count | plus: 1 %}
+          {% endfor %}
+          {% assign page_count = 1 %}
+          {% assign post_modulo = post_count | modulo: 4 %}
+          {% if post_modulo == 0 %}
+          {% assign page_count = 0 %}
+          {% endif %}
+          {% assign page_count = post_count | divided_by: 4 | plus: page_count %}
+
+          {% assign post_count = -1 %}
+          {% for post in sorted %}
+          {% assign post_count = post_count | plus: 1 %}
+          {% assign current_page_count = post_count | divided_by: 4 | plus: 1 %}
+          <div class="blog-list-container" id="{{ current_page_count }}">
+            <p>
+              <h2 class="post-title">
+                {{ post.title }}
+              </h2>
+              {% if post.subtitle %}
+              <p class="post-subtitle" style="text-align: justify;text-justify: inter-word;">
+                {{ post.subtitle }}
+              </p>
+              <br/>
+              {% endif %}
+              {% if post.video %}
+              <div class="embed-responsive embed-responsive-4by3">
+                <iframe class="embed-responsive-item" src="{{post.video}}">
+                </iframe>
+              </div>
+              {% endif %}
+
+              {% if post.slideshare %}
+              <iframe src="{{post.slideshare}}" width="100%" height="565" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
+
+              {% endif %}
+              {% if post.slide %}
+              <div class="embed-responsive embed-responsive-4by3">
+                <iframe src="{{post.slide}}" width="100%" height="565" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+              </div>
+              {% endif %}
+
+              {% if post.link %}
+               <a href="{{post.link}}">{{post.link}}</a>
+              {% endif %}
+            </p>
+            <p class="post-meta">Posted by {% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} on {{ post.date | date: "%B %-d, %Y" }}</p>
+            <hr/>
+          </div>
+
+          {% endfor %}
+
+        </div>
+
+        <div class="col-sm-4">
+          <div style="max-width:75%;">
+            <ul  class="blog-tags-list">
+              <li class="blog-tag-item" style="background-color:white !important;">PAGES</li>
+            </ul>
+            <ul  class="blog-tags-list">
+              <!-- <li class="blog-tag-item" style="background-color:white !important;font-size: 80%;">Years</li> -->
+              <br/>
+              {% for one_page in (1..page_count) %}
+              <li class="blog-tag-item" id="{{ one_page }}-item">
+                <a href onclick="filter('{{ one_page }}', 'page'); return false;">{{ one_page }}</a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+</div>
+
+<script type="text/javascript">
+
+var item = document.getElementById("selected-tags");
+if (item.getAttribute("page")) {
+} else {
+  filter('1', 'page')
+}
+
+
+function filter(tag, page) {
+  var item = document.getElementById("selected-tags");
+  switch (page) {
+    case "[[clear-all]]":
+    item.setAttribute('page', '');
+    break;
+    case "page":
+    item.setAttribute('page', tag);
+    break;
+  }
+  // console.log(item);
+  item.setAttribute('class', '');
+  if (item.getAttribute("page"))
+  item.classList.add(item.getAttribute("page"));
+
+  setActiveTag(tag);
+  showContainer(tag);
+}
+
+function setActiveTag(tag) {
+  // loop through all items and remove active class
+  var items = document.getElementsByClassName('blog-tag-item');
+  for (var i = 0; i < items.length; i++) {
+    items[i].setAttribute('class', 'blog-tag-item');
+  }
+
+  // set the selected tag's item to active
+  var item2 = document.getElementById("selected-tags");
+  for (var i=0; i<item2.classList.length; i++) {
+    var tag2 = item2.classList[i]
+    var item = document.getElementById(tag2 + '-item');
+    if (item) {
+      item.setAttribute('class', 'blog-tag-item active');
+    }
+  }
+}
+
+function checkContainsAllTags(itemID) {
+  var item = document.getElementById("selected-tags");
+  var flagContains = true;
+  for (var i=0; i<item.classList.length; i++) {
+    if (!itemID.includes(item.classList[i])) {
+      flagContains = false;
+    }
+  }
+  return flagContains;
+}
+
+function showContainer(tag) {
+  var lists = document.getElementsByClassName('blog-list-container');
+  for (var i = 0; i < lists.length; i++) {
+    if (!checkContainsAllTags(lists[i].id)) {
+      lists[i].classList.add("hidden");
+      // lists[i].setAttribute('class', 'blog-list-container hidden');
+    } else {
+      lists[i].classList.remove("hidden");
+      // lists[i].setAttribute('class', 'blog-list-container');
+    }
+  }
+  if (!tag) {
+    for (var i = 0; i < lists.length; i++) {
+      lists[i].classList.remove("hidden");
+    }
+  }
+}
+
+var params = {};
+if (location.search) {
+  var parts = location.search.substring(1).split('&');
+
+  for (var i = 0; i < parts.length; i++) {
+    var nv = parts[i].split('=');
+    if (!nv[0]) continue;
+    params[nv[0]] = nv[1] || true;
+  }
+}
+var proj = params.proj;
+if (proj) {
+  proj = proj.toUpperCase();
+  filter(proj, 'proj');
+}
+</script>
